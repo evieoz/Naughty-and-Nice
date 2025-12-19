@@ -19,11 +19,43 @@ function checkNaughtyOrNice() {
 
 const score = getPoints(q1) + getPoints(q2) + getPoints(q3) + getPoints(q4) + getPoints(q5);
 
+
+const meterFill = document.querySelector('.meter-fill');
+
+
+let percent = ((score + 5) / 10) * 100;
+if (percent < 0) percent = 0;
+if (percent > 100) percent = 100;
+
+meterFill.style.width = percent + '%';
+
+const card = document.querySelector('.card');
+
+
+card.classList.remove('nice-glow', 'naughty-glow');
+
+let message = '';
+
 if (score > 2.5) {
-    alert("You are on the Nice List!");
+    card.classList.add('nice-glow');
+    message = "You are on the Nice List! ";
 } else {
-    alert("You are on the Naughty List!");
+    card.classList.add('naughty-glow');
+    message = "You are on the Naughty List! ";
 }
+
+
+let resultDiv = document.getElementById('result');
+if (!resultDiv) {
+    resultDiv = document.createElement('div');
+    resultDiv.id = 'result';
+    resultDiv.style.marginTop = '1rem';
+    resultDiv.style.fontWeight = '700';
+    resultDiv.style.textAlign = 'center';
+    document.querySelector('.card-body').appendChild(resultDiv);
+}
+resultDiv.textContent = message;
+
 
 
 }
